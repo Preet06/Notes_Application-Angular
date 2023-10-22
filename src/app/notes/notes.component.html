@@ -1,24 +1,19 @@
 <div class="container">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNoteModal" data-bs-whatever="@mdo">Create Note 
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNoteModal" data-bs-whatever="@mdo" style="margin-bottom: 10px;">Create Note 
         <i class="bi bi-file-plus"></i>
     </button>
     <div class="row">
-        <div class="col-md-4">
-            <div class="card card-body">
-                <h5>Angular 14 Tutorial</h5>
-                <p class="text-muted"> Angular 14 is a Framework . Angular 14 is a Framework .
-                    Angular 14 is a Framework .
-                    Angular 14 is a Framework .Angular 14 is a Framework .Angular 14 is a Framework</p>
+        <div  style="display: grid;grid-template-columns: auto auto auto;gap: 10px;">
+            <div class="card card-body" *ngFor="let item of comp">
+                <h5>{{item.note_title}}</h5>
+                <p class="text-muted"> {{item.note_dec}} </p>
                     <div class="d-flex align-items-center">
                         <span class="mx-3">
-                            <i class="bi bi-pen" data-bs-toggle="modal" data-bs-target="#editNoteModal"></i>
+                          <!-- <button class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#addNoteModal" (click)="updateNote(item)" > <i class="bi bi-trash"></i>Update</button> -->
+                            <button class="btn btn-danger" (click)="deleteNote(item.id)" > <i class="bi bi-trash"></i>Delete</button>
+                            <button  data-bs-toggle="modal" data-bs-target="#addNoteModal" data-bs-whatever="@mdo" class="btn btn-primary" (click)="editNote(item)" style="margin-left: 5px;"><i class="bi bi-pen"></i>Edit Notes</button>
                         </span>
-                        <span class="mx-3">
-                            <i class="bi bi-trash"></i>
-                        </span>
-                        
-                    </div>
-                
+                    </div>  
             </div>
         </div>
     </div>
@@ -34,48 +29,20 @@
             <div class="modal-body">
               <form [formGroup]="noteForm">
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Recipient:</label>
-                  <input type="text" class="form-control" id="recipient-name" formControlName = 'title'>
+                  <label for="recipient-name" class="col-form-label">Task:</label>
+                  <input type="text" class="form-control" id="recipient-name" id="note_title" value="" formControlName = 'note_title'>
                 </div>
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Message:</label>
-                  <textarea class="form-control" id="message-text" formControlName = 'description'></textarea>
+                  <label for="message-text" class="col-form-label">Details:</label>
+                  <input class="form-control" id="message-text" id="note_dec" value="" formControlName = 'note_dec'>
+                </div>
+                <div class="modal-footer">
+                  <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addNote()">Add Notes</button>
                 </div>
               </form>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" (click)="addNote()">Add Notes</button>
-            </div>
+           
           </div>
         </div>
       </div>
-
-
-      <div class="modal fade" id="editNoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Notes</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Note Title:</label>
-                  <input type="text" class="form-control" id="recipient-name">
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Note Description:</label>
-                  <textarea class="form-control" id="message-text"></textarea>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">AUpdate Notes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-</div>
